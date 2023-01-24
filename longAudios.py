@@ -56,13 +56,13 @@ def extract_mfccs(wav,index):
     return mfccs
 
 
-file_path = os.path.join('Audios', '2minENG.wav')
+file_path = os.path.join('Audios', '40sFR.wav')
 wav = load_wav_16k_mono(file_path)
 audio_slices = tf.keras.utils.timeseries_dataset_from_array(wav, wav, sequence_length=80000, sequence_stride=80000, batch_size=1)
 audio_slices = audio_slices.map(extract_mfccs)
 audio_slices = audio_slices.batch(64)
 predictions = model.predict(audio_slices)
-
+print(predictions)
 # calculate the mean of each column of the predictions
 mean_predictions = tf.reduce_mean(predictions, axis=0)
 # get the index of the highest mean
