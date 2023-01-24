@@ -1,8 +1,8 @@
 from pydub import AudioSegment
 import os
 
-path_to_dir = '/Users/josephbeasse/Desktop/deepLanguage/audios/'
-path_to_wav = '/Users/josephbeasse/Desktop/deepLanguage/audios2/'
+path_to_dir = '/Users/josephbeasse/Desktop/deepLanguage/ToConvert/'
+path_to_wav = '/Users/josephbeasse/Desktop/deepLanguage/Audios/'
 number_files = 0
 
 for file in os.listdir(path_to_dir):
