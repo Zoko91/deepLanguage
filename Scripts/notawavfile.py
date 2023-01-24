@@ -6,8 +6,8 @@ import tensorflow_io as tfio
 import mimetypes #gives file type details
 
 # Define Paths to Files
-fr_audios = os.path.join('Data', 'fr_wav', 'output0.wav')
-de_audios = os.path.join('Data', 'de_wav', 'output0.wav')
+fr_audios = os.path.join('../Data', 'fr_wav', 'output0.wav')
+de_audios = os.path.join('../Data', 'de_wav', 'output0.wav')
 
 
 def load_wav_16k_mono(filename):

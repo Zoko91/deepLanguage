@@ -6,10 +6,10 @@ import tensorflow_io as tfio
 import matplotlib.pyplot as plt
 
 # Increase the amount of data you're using to train the model
-FR = os.path.join('Data', 'fr_wav')
-EN = os.path.join('Data', 'en_wav')
-DE = os.path.join('Data', 'de_wav')
-ES = os.path.join('Data', 'es_wav')
+FR = os.path.join('../Data', 'fr_wav')
+EN = os.path.join('../Data', 'en_wav')
+DE = os.path.join('../Data', 'de_wav')
+ES = os.path.join('../Data', 'es_wav')
 
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')
@@ -49,6 +49,9 @@ def preprocess(file_path):
 
 def extract_mfccs(file_path, label):
     preprocessed_audio = preprocess(file_path)
+    if not tf.reduce_any(tf.math.is_finite(preprocessed_audio)):
+        print("Detected NaN values")
+        tf.print(file_path)
     # Get the audio data as a tensor
     audio_tensor = tf.convert_to_tensor(preprocessed_audio)
     # Reshape the audio data to 2D for the STFT function
@@ -77,29 +80,29 @@ def extract_mfccs(file_path, label):
 
 # --------------------- Plot the MFCCs ---------------------
 # Extract the MFCCs
-file_path = 'input.wav'
-mfccs, label = extract_mfccs(file_path, 0)
-# Plot the MFCCs
-plt.imshow(tf.transpose(mfccs[0]), aspect='auto', cmap='hot')
-plt.gca().invert_yaxis()
-plt.colorbar()
-plt.xlabel('Frames x Seconds')
-plt.ylabel('MFCC Coefficients')
-plt.title('MFCCs of audio file')
-plt.show()
+# file_path = '../input.wav'
+# mfccs, label = extract_mfccs(file_path, 0)
+# # Plot the MFCCs
+# plt.imshow(tf.transpose(mfccs[0]), aspect='auto', cmap='hot')
+# plt.gca().invert_yaxis()
+# plt.colorbar()
+# plt.xlabel('Frames x Seconds')
+# plt.ylabel('MFCC Coefficients')
+# plt.title('MFCCs of audio file')
+# plt.show()
 
 
 # --------------------- Prepare the data ---------------------
 data = data.map(extract_mfccs)            # Extract the MFCCs
 data.save('Models/data')                  # Save the data to a file
-
-# Shuffle the data
-data = data.shuffle(40000)
-data = data.batch(32)
-data = data.prefetch(32)
-# Split the data into training and validation sets
-# Train has 34000 samples, test has 6000 samples
-train = data.take(34000)
-test = data.skip(34000).take(6000)
-samples, labels = train.as_numpy_iterator().next()
-print(samples.shape)  # result:  (32, 1, 153, 13)
+#
+# # Shuffle the data
+# data = data.shuffle(40000)
+# data = data.batch(32)
+# data = data.prefetch(32)
+# # Split the data into training and validation sets
+# # Train has 34000 samples, test has 6000 samples
+# train = data.take(34000)
+# test = data.skip(34000).take(6000)
+# samples, labels = train.as_numpy_iterator().next()
+# print(samples.shape)  # result:  (32, 1, 153, 13)

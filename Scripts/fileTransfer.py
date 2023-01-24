@@ -9,7 +9,7 @@ src_dir = '/Users/josephbeasse/Desktop/deepLanguage/Data/en2/clips'
 dst_dir = '/Users/josephbeasse/Desktop/deepLanguage/Data/en'
 
 # specify the path to the CSV file containing the file names
-tsv_path = '/Data/en2/validated.tsv'
+tsv_path = '../Data/en2/validated.tsv'
 
 # open the CSV file and read the file names
 with open(tsv_path, 'r') as f:
