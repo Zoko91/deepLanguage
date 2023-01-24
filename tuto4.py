@@ -59,4 +59,4 @@ model.summary()
 
 # --------------------- Train the model ---------------------
 history = model.fit(train, epochs=10, validation_data=test, verbose=1)
-
+model.save('../Models/modelNew.h5')

@@ -24,7 +24,7 @@ data = frMapped.concatenate(enMapped)
 data = data.concatenate(deMapped)
 data = data.concatenate(esMapped)
 data_size = data.reduce(0, lambda state, _: state + 1)
-print('Data size: ', data_size.numpy()) # Data size:  43999
+print('Data size: ', data_size.numpy())  # Data size:  43993
 
 
 # Load audio file
@@ -49,9 +49,9 @@ def preprocess(file_path):
 
 def extract_mfccs(file_path, label):
     preprocessed_audio = preprocess(file_path)
-    if not tf.reduce_any(tf.math.is_finite(preprocessed_audio)):
-        print("Detected NaN values")
-        tf.print(file_path)
+    # if not tf.reduce_any(tf.math.is_finite(preprocessed_audio)):
+    #     print("Detected NaN values")
+    #     tf.print(file_path)
     # Get the audio data as a tensor
     audio_tensor = tf.convert_to_tensor(preprocessed_audio)
     # Reshape the audio data to 2D for the STFT function
@@ -94,7 +94,7 @@ def extract_mfccs(file_path, label):
 
 # --------------------- Prepare the data ---------------------
 data = data.map(extract_mfccs)            # Extract the MFCCs
-data.save('Models/data')                  # Save the data to a file
+data.save('../Models/data')                  # Save the data to a file
 #
 # # Shuffle the data
 # data = data.shuffle(40000)
