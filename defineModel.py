@@ -45,6 +45,7 @@ model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='rel
 model.add(tf.keras.layers.MaxPooling2D(pool_size=(1, 1)))
 model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu', padding='same'))
 model.add(tf.keras.layers.MaxPooling2D(pool_size=(1, 1)))
+
 # Fully connected layers
 model.add(tf.keras.layers.Flatten())
 model.add(tf.keras.layers.Dense(units=64, activation='relu'))
