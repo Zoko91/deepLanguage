@@ -5,7 +5,6 @@ import tensorflow_io as tfio
 from tensorflow import keras
 import matplotlib.pyplot as plt
 
-
 model = keras.models.load_model('Models/model.h5')
 
 

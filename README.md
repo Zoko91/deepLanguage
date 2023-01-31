@@ -39,6 +39,7 @@ https://www.tensorflow.org/tutorials/audio/simple_audio
 https://www.connectedpapers.com/main/85dc10fe4b8ad2761a81e9dce7755f87d822428e/Multiclass-Language-Identification-using-Deep-Learning-on-Spectral-Images-of-Audio-Signals/graph
 https://paperswithcode.com/task/spoken-language-identification
 https://github.com/HPI-DeepLearning/crnn-lid
+https://huggingface.co/spaces/Plaban81/Detect_Language_from_audio_file/blob/main/app.py
 ```
 
 # Help
