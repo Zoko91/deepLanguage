@@ -59,7 +59,7 @@ def extract_mfccs(file_path):
     return mfccs
 
 
-input_file = 'Audios/Tram2.wav'
+input_file = 'Audios/fr.wav'
 inputMFCC = extract_mfccs(input_file)
 inputMFCC = tf.expand_dims(inputMFCC, axis=0)
 prediction = model.predict(inputMFCC)

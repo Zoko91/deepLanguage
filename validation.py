@@ -80,8 +80,8 @@ def extract_mfccs(file_path, label):
 # Shuffle the data
 data = data.map(extract_mfccs)
 data = data.shuffle(4000)
-data = data.batch(32)
-data = data.prefetch(32)
+data = data.batch(1)
+data = data.prefetch(1)
 model = keras.models.load_model('Models/model.h5')
 val_loss, val_accuracy = model.evaluate(data)
 print("Validation Loss: ", val_loss)

@@ -3,10 +3,14 @@ import tensorflow as tf
 import tensorflow_io as tfio
 
 # Increase the amount of data you're using to train the model
-FR = os.path.join('../Data', 'fr_wav')
-EN = os.path.join('../Data', 'en_wav')
-DE = os.path.join('../Data', 'de_wav')
-ES = os.path.join('../Data', 'es_wav')
+# FR = os.path.join('../Data', 'fr_wav')
+# EN = os.path.join('../Data', 'en_wav')
+# DE = os.path.join('../Data', 'de_wav')
+# ES = os.path.join('../Data', 'es_wav')
+FR = os.path.join('../Data', 'val_set_fr')
+EN = os.path.join('../Data', 'val_set_en')
+DE = os.path.join('../Data', 'val_set_de')
+ES = os.path.join('../Data', 'val_set_es')
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')
 de = tf.data.Dataset.list_files(DE + '/*.wav')
