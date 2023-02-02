@@ -1,25 +1,23 @@
-# Preparing the MFCCs of the audio files
-
-import os
+# VALIDATION: 0.0
 import tensorflow as tf
 import tensorflow_io as tfio
-import matplotlib.pyplot as plt
+from tensorflow import keras
+import os
 
-# Increase the amount of data you're using to train the model
-FR = os.path.join('../Data', 'fr_wav')
-EN = os.path.join('../Data', 'en_wav')
-DE = os.path.join('../Data', 'de_wav')
-ES = os.path.join('../Data', 'es_wav')
+FR = os.path.join('Data', 'val_set_fr')
+EN = os.path.join('Data', 'val_set_en')
+DE = os.path.join('Data', 'val_set_de')
+ES = os.path.join('Data', 'val_set_es')
 
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')
 de = tf.data.Dataset.list_files(DE + '/*.wav')
 es = tf.data.Dataset.list_files(ES + '/*.wav')
 
-frMapped = tf.data.Dataset.zip((fr, tf.data.Dataset.from_tensor_slices(tf.ones(len(fr),dtype=tf.int32))))
-enMapped = tf.data.Dataset.zip((en, tf.data.Dataset.from_tensor_slices(tf.zeros(len(en),dtype=tf.int32))))
-deMapped = tf.data.Dataset.zip((de, tf.data.Dataset.from_tensor_slices(tf.ones(len(de),dtype=tf.int32) * 2)))
-esMapped = tf.data.Dataset.zip((es, tf.data.Dataset.from_tensor_slices(tf.ones(len(es),dtype=tf.int32) * 3)))
+frMapped = tf.data.Dataset.zip((fr, tf.data.Dataset.from_tensor_slices(tf.ones(len(fr)))))
+enMapped = tf.data.Dataset.zip((en, tf.data.Dataset.from_tensor_slices(tf.zeros(len(en)))))
+deMapped = tf.data.Dataset.zip((de, tf.data.Dataset.from_tensor_slices(tf.ones(len(de)) * 2)))
+esMapped = tf.data.Dataset.zip((es, tf.data.Dataset.from_tensor_slices(tf.ones(len(es)) * 3)))
 data = frMapped.concatenate(enMapped)
 data = data.concatenate(deMapped)
 data = data.concatenate(esMapped)
@@ -78,31 +76,13 @@ def extract_mfccs(file_path, label):
     return mfccs, label
 
 
-# --------------------- Plot the MFCCs ---------------------
-# Extract the MFCCs
-# file_path = '../input.wav'
-# mfccs, label = extract_mfccs(file_path, 0)
-# # Plot the MFCCs
-# plt.imshow(tf.transpose(mfccs[0]), aspect='auto', cmap='hot')
-# plt.gca().invert_yaxis()
-# plt.colorbar()
-# plt.xlabel('Frames x Seconds')
-# plt.ylabel('MFCC Coefficients')
-# plt.title('MFCCs of audio file')
-# plt.show()
 
-
-# --------------------- Prepare the data ---------------------
-data = data.map(extract_mfccs)            # Extract the MFCCs
-data.save('../Models/data')                  # Save the data to a file
-#
-# # Shuffle the data
-# data = data.shuffle(40000)
-# data = data.batch(32)
-# data = data.prefetch(32)
-# # Split the data into training and validation sets
-# # Train has 34000 samples, test has 6000 samples
-# train = data.take(34000)
-# test = data.skip(34000).take(6000)
-# samples, labels = train.as_numpy_iterator().next()
-# print(samples.shape)  # result:  (32, 1, 153, 13)
+# Shuffle the data
+data = data.map(extract_mfccs)
+data = data.shuffle(4000)
+data = data.batch(32)
+data = data.prefetch(32)
+model = keras.models.load_model('Models/model.h5')
+val_loss, val_accuracy = model.evaluate(data)
+print("Validation Loss: ", val_loss)
+print("Validation Accuracy: ", val_accuracy)

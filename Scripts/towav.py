@@ -16,7 +16,8 @@ for file in os.listdir(path_to_dir):
         mp3_audio.export(name, format="wav")
         number_files += 1
         print(number_files)
-        if number_files == 11000:
-            break
+#         if number_files == 11000:
+#             break
+
 
 print(str(number_files) + " files converted")
