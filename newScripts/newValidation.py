@@ -1,12 +1,41 @@
-# Load Dependencies
-import os
+# VALIDATION: 0.0
 import tensorflow as tf
 import tensorflow_io as tfio
 from tensorflow import keras
-import matplotlib.pyplot as plt
+import os
 
-model = keras.models.load_model('Models/model.h5')
+FR = os.path.join('../Data', 'val_set_fr')
+EN = os.path.join('../Data', 'val_set_en')
+DE = os.path.join('../Data', 'val_set_de')
+ES = os.path.join('../Data', 'val_set_es')
 
+def get_label(file_path, language):
+    # One-hot encode the language
+    one_hot_encoded_label = tf.one_hot(
+        [LANGUAGES.index(language)], depth=len(LANGUAGES))
+    one_hot_encoded_label = tf.cast(one_hot_encoded_label, tf.int32)
+    return file_path, one_hot_encoded_label
+
+
+LANGUAGES = ['english', 'french', 'german', 'spanish']
+
+
+fr = tf.data.Dataset.list_files(FR + '/*.wav')
+fr = fr.map(lambda x: get_label(x, 'french'))
+
+en = tf.data.Dataset.list_files(EN + '/*.wav')
+en = en.map(lambda x: get_label(x, 'english'))
+
+de = tf.data.Dataset.list_files(DE + '/*.wav')
+de = de.map(lambda x: get_label(x, 'german'))
+
+es = tf.data.Dataset.list_files(ES + '/*.wav')
+es = es.map(lambda x: get_label(x, 'spanish'))
+
+
+data = fr.concatenate(en)
+data = data.concatenate(de)
+data = data.concatenate(es)
 
 # Load audio file
 def load_wav_16k_mono(filename):
@@ -28,7 +57,7 @@ def preprocess(file_path):
     return wav
 
 
-def extract_mfccs(file_path):
+def extract_mfccs(file_path, label):
     preprocessed_audio = preprocess(file_path)
     # if not tf.reduce_any(tf.math.is_finite(preprocessed_audio)):
     #     print("Detected NaN values")
@@ -56,22 +85,16 @@ def extract_mfccs(file_path):
     mfccs = mfccs[..., :13]
     # Normalize the MFCCs
     mfccs = (mfccs - tf.math.reduce_mean(mfccs)) / tf.math.reduce_std(mfccs)
-    return mfccs
+    return mfccs, label
 
 
-# input_file = 'Audios/fr.wav'
-input_file = '/Users/josephbeasse/Desktop/deepLanguage/Data/val_set_es/output1350.wav'
-inputMFCC = extract_mfccs(input_file)
-inputMFCC = tf.expand_dims(inputMFCC, axis=0)
-prediction = model.predict(inputMFCC)
-# get the index of the predicted class
-language_index = tf.argmax(prediction, axis=1).numpy()[0]
-# define the mapping of class index to language
-language_mapping = {0: 'French', 1: 'English', 2: 'German', 3: 'Spanish'}
-# get the predicted language
-language = language_mapping[language_index]
-# get the probability of the predicted class
-language_probability = prediction[0, language_index]
-# print the predicted language and its probability
-print(prediction)
-print(f"The language of the audio file is: {language} with {language_probability * 100:.2f}% of probability.")
+
+# Shuffle the data
+data = data.map(extract_mfccs)
+data = data.shuffle(6000)
+data = data.batch(32)
+data = data.prefetch(32)
+model = keras.models.load_model('../Models/modelNew.h5')
+val_loss, val_accuracy = model.evaluate(data)
+print("Validation Loss: ", val_loss)
+print("Validation Accuracy: ", val_accuracy)

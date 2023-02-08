@@ -1,11 +1,50 @@
-# Load Dependencies
+# Preparing the MFCCs of the audio files
+
 import os
 import tensorflow as tf
 import tensorflow_io as tfio
-from tensorflow import keras
 import matplotlib.pyplot as plt
 
-model = keras.models.load_model('Models/model.h5')
+# Increase the amount of data you're using to train the model
+FR = os.path.join('../Data', 'fr_wav')
+EN = os.path.join('../Data', 'en_wav')
+DE = os.path.join('../Data', 'de_wav')
+ES = os.path.join('../Data', 'es_wav')
+
+def get_label(file_path, language):
+    # One-hot encode the language
+    one_hot_encoded_label = tf.one_hot(
+        [LANGUAGES.index(language)], depth=len(LANGUAGES))
+    one_hot_encoded_label = tf.cast(one_hot_encoded_label, tf.int32)
+    return file_path, one_hot_encoded_label
+
+
+LANGUAGES = ['english', 'french', 'german', 'spanish']
+
+
+fr = tf.data.Dataset.list_files(FR + '/*.wav')
+fr = fr.map(lambda x: get_label(x, 'french'))
+
+en = tf.data.Dataset.list_files(EN + '/*.wav')
+en = en.map(lambda x: get_label(x, 'english'))
+
+de = tf.data.Dataset.list_files(DE + '/*.wav')
+de = de.map(lambda x: get_label(x, 'german'))
+
+es = tf.data.Dataset.list_files(ES + '/*.wav')
+es = es.map(lambda x: get_label(x, 'spanish'))
+
+
+data = fr.concatenate(en)
+data = data.concatenate(de)
+data = data.concatenate(es)
+# data_size = data.reduce(0, lambda state, _: state + 1)
+# print('Data size: ', data_size.numpy())  # Data size:  43993
+
+
+random_example = data.shuffle(buffer_size=50000).take(5)
+for audio_path, label in random_example:
+    print(audio_path.numpy().decode(), label.numpy())
 
 
 # Load audio file
@@ -28,7 +67,7 @@ def preprocess(file_path):
     return wav
 
 
-def extract_mfccs(file_path):
+def extract_mfccs(file_path, label):
     preprocessed_audio = preprocess(file_path)
     # if not tf.reduce_any(tf.math.is_finite(preprocessed_audio)):
     #     print("Detected NaN values")
@@ -56,22 +95,32 @@ def extract_mfccs(file_path):
     mfccs = mfccs[..., :13]
     # Normalize the MFCCs
     mfccs = (mfccs - tf.math.reduce_mean(mfccs)) / tf.math.reduce_std(mfccs)
-    return mfccs
+    return mfccs, label
 
 
-# input_file = 'Audios/fr.wav'
-input_file = '/Users/josephbeasse/Desktop/deepLanguage/Data/val_set_es/output1350.wav'
-inputMFCC = extract_mfccs(input_file)
-inputMFCC = tf.expand_dims(inputMFCC, axis=0)
-prediction = model.predict(inputMFCC)
-# get the index of the predicted class
-language_index = tf.argmax(prediction, axis=1).numpy()[0]
-# define the mapping of class index to language
-language_mapping = {0: 'French', 1: 'English', 2: 'German', 3: 'Spanish'}
-# get the predicted language
-language = language_mapping[language_index]
-# get the probability of the predicted class
-language_probability = prediction[0, language_index]
-# print the predicted language and its probability
-print(prediction)
-print(f"The language of the audio file is: {language} with {language_probability * 100:.2f}% of probability.")
+# --------------------- Plot the MFCCs ---------------------
+# Extract the MFCCs
+# file_path = '../input.wav'
+# mfccs, label = extract_mfccs(file_path, [0, 1, 0, 0])
+# # Plot the MFCCs
+# plt.imshow(tf.transpose(mfccs[0]), aspect='auto', cmap='hot')
+# plt.gca().invert_yaxis()
+# plt.colorbar()
+# plt.xlabel('Frames x Seconds')
+# plt.ylabel('MFCC Coefficients')
+# plt.title('MFCCs of audio file')
+# plt.show()
+
+# --------------------- Prepare the data ---------------------
+data = data.map(extract_mfccs)            # Extract the MFCCs
+data.save('../Models/newData')               # Save the data to a file
+#
+# # # Shuffle the data
+# data = data.shuffle(60000)
+# data = data.batch(32)
+# data = data.prefetch(32)
+# # Split the data into training and validation sets
+# # Train has 40 000 samples
+# random_example = data.take(1).unbatch()
+# for samples, label in random_example:
+#     print(samples.shape)
