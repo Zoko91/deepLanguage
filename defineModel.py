@@ -36,8 +36,13 @@ test = data.skip(34000).take(6000)
 # Model N°2
 # -----------------------------------------------------------
 model = tf.keras.Sequential()
+# Creates an empty sequential model in TensorFlow using the Keras API.
+# A sequential model is a linear stack of layers, where you use the large majority of the layers in practice.
+
 # Input reshape
 model.add(tf.keras.layers.Reshape((153, 13, 1), input_shape=(1, 153, 13)))
+
+
 # Convolutional layers
 model.add(tf.keras.layers.Conv2D(filters=16, kernel_size=(3, 3), activation='relu', padding='same'))
 model.add(tf.keras.layers.MaxPooling2D(pool_size=(1, 1)))

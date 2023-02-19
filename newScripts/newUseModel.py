@@ -6,7 +6,7 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 
 model = keras.models.load_model('../Models/modelNew.h5')
-
+tf.keras.utils.plot_model(model, show_shapes=True, rankdir="LR")
 
 # Load audio file
 def load_wav_16k_mono(filename):
@@ -59,19 +59,18 @@ def extract_mfccs(file_path):
     return mfccs
 
 
-# input_file = 'Audios/fr.wav'
-input_file = '/Users/josephbeasse/Desktop/deepLanguage/Data/val_set_es/output1040.wav'
+input_file = '/Users/josephbeasse/Desktop/deepLanguage/Data/val_set_en/output3461.wav'
 inputMFCC = extract_mfccs(input_file)
 inputMFCC = tf.expand_dims(inputMFCC, axis=0)
 prediction = model.predict(inputMFCC)
+print(prediction)
 # get the index of the predicted class
 language_index = tf.argmax(prediction, axis=2).numpy()[0][0]
 # define the mapping of class index to language
-language_mapping = {0: 'French', 1: 'English', 2: 'German', 3: 'Spanish'}
+language_mapping = {0: 'English', 1: 'French', 2: 'German', 3: 'Spanish'}
 # get the predicted language
 language = language_mapping[language_index]
 # get the probability of the predicted class
 language_probability = prediction[0][0][language_index]
 # print the predicted language and its probability
-print(prediction)
-print(f"The language of the audio file is: {language} with {language_probability * 100:.2f}% of probability.")
+print(f"The language of the audio file is: {language}.")
