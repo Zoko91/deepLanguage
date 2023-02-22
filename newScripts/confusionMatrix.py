@@ -10,7 +10,8 @@ data = tf.data.Dataset.load('../Models/newDataValidation') # Load the data from 
 data = data.shuffle(4000)
 data = data.batch(16)
 data = data.prefetch(16)
-model = keras.models.load_model('../Models/modelNew.h5')
+#model = keras.models.load_model('../Models/modelNew.h5')
+model = keras.models.load_model('../Models/model2.h5')
 
 # --------------------- Confusion Matrix ---------------------
 LANGUAGES = ['english', 'french', 'german', 'spanish']
@@ -21,7 +22,7 @@ def get_labels_and_predictions(model, data):
     predictions = []
     for batch in data:
         batch_labels = batch[1]
-        batch_predictions = model.predict(batch[0])
+        batch_predictions = model.predict(batch[0],verbose=0)
         labels.append(batch_labels)
         predictions.append(batch_predictions)
     labels = tf.concat(labels, axis=0)
@@ -37,11 +38,6 @@ confusion = tf.math.confusion_matrix(tf.argmax(val_labels, axis=1),
                                      tf.argmax(val_predictions, axis=1),
                                      num_classes=4)
 print(confusion)
-# tf.Tensor(
-# [[913  12  46  28]
-#  [ 86 794  74  46]
-#  [ 87  37 863  13]
-#  [ 55  34  26 885]], shape=(4, 4), dtype=int32)
 
 # --------------------- Plot the confusion matrix---------------------
 confusion = confusion.numpy()
