@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import librosa.display
 
 # Load the audio file
-sample_rate, audio_signal = read("input.wav")
+sample_rate, audio_signal = read("../input.wav")
 # Compute the spectrogram
 _, _, spectrogram = stft(audio_signal, sample_rate, nperseg=256, noverlap=128)
 

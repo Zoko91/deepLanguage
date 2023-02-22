@@ -6,10 +6,10 @@ import tensorflow as tf
 import tensorflow_io as tfio
 
 # Increase the amount of data you're using to train the model
-FR = os.path.join('Data', 'fr_wav')
-EN = os.path.join('Data', 'en_wav')
-DE = os.path.join('Data', 'de_wav')
-ES = os.path.join('Data', 'es_wav')
+FR = os.path.join('../Data', 'fr_wav')
+EN = os.path.join('../Data', 'en_wav')
+DE = os.path.join('../Data', 'de_wav')
+ES = os.path.join('../Data', 'es_wav')
 
 # On kaggle use the following:
 # FR = os.path.join('data-fr')

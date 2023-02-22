@@ -38,13 +38,17 @@ es = es.map(lambda x: get_label(x, 'spanish'))
 data = fr.concatenate(en)
 data = data.concatenate(de)
 data = data.concatenate(es)
+
+# How many files in the dataset ?
+# --
 # data_size = data.reduce(0, lambda state, _: state + 1)
 # print('Data size: ', data_size.numpy())  # Data size:  43993
 
-
-random_example = data.shuffle(buffer_size=50000).take(5)
-for audio_path, label in random_example:
-    print(audio_path.numpy().decode(), label.numpy())
+# Has the data been shuffled ? What are the labels ?
+# --
+# random_example = data.shuffle(buffer_size=50000).take(5)
+# for audio_path, label in random_example:
+#     print(audio_path.numpy().decode(), label.numpy())
 
 
 # Load audio file
