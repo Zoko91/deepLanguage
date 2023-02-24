@@ -1,8 +1,3 @@
-
-############# PROBLEM #############
-# The datasize of the elements we are evaluating is too small ?????
-
-
 # --------------------- Playground ---------------------
 import tensorflow as tf
 import tensorflow_io as tfio
@@ -52,16 +47,20 @@ def load_wav_16k_mono(filename):
 
 
 # Pad or truncate the audio file to 5 seconds
-def preprocess(file_wav):
-    wav = file_wav[0]
+def preprocess(file_path):
+    wav = load_wav_16k_mono(file_path)
+    wav = wav[:80000]
     zero_padding = tf.zeros([80000] - tf.shape(wav), dtype=tf.float32)
     wav = tf.concat([zero_padding, wav], 0)
     wav = wav / tf.math.reduce_max(wav)
     return wav
 
 
-def extract_mfccs(file_wav, label):
-    preprocessed_audio = preprocess(file_wav)
+def extract_mfccs(file_path, label):
+    preprocessed_audio = preprocess(file_path)
+    # if not tf.reduce_any(tf.math.is_finite(preprocessed_audio)):
+    #     print("Detected NaN values")
+    #     tf.print(file_path)
     # Get the audio data as a tensor
     audio_tensor = tf.convert_to_tensor(preprocessed_audio)
     # Reshape the audio data to 2D for the STFT function
@@ -88,40 +87,26 @@ def extract_mfccs(file_wav, label):
     return mfccs, label
 
 
-augmented_dataset = None
-
-for file_path, labels in data:
-    wav = load_wav_16k_mono(file_path)
-    if wav.shape[0]>80000:
-        audio_slices = tf.keras.utils.timeseries_dataset_from_array(wav, labels, sequence_length=80000,
-                                                                    sequence_stride=80000,
-                                                                    batch_size=1)
-
-        augmented_data = audio_slices.map(extract_mfccs)
-        if augmented_dataset is None:
-            augmented_dataset = augmented_data
-        else:
-            augmented_dataset = augmented_dataset.concatenate(augmented_data)
-
-
-    # data_size = augmented_dataset.reduce(0, lambda state, _: state + 1)
-    # print('Data size: ', data_size.numpy())  # Data size:
-
 # How many files in the dataset ?
+data_size = data.reduce(0, lambda state, _: state + 1)
+print('Data size: ', data_size.numpy())
+
+for elem in data.take(1):
+    print(elem[0])
+    print(elem[0].shape)
+
+# data = data.map(extract_mfccs)
+# data = data.shuffle(200)
+# data = data.batch(8)
+# data = data.prefetch(4)
+# model = keras.models.load_model('Models/model2.h5')
+#
+# # --------------------- Evaluate ---------------------
+# val_loss, val_accuracy = model.evaluate(data)
+# print("Validation Loss: ", val_loss)
+# print("Validation Accuracy: ", val_accuracy)
 
 
-
-augmented_dataset = augmented_dataset.shuffle(200)
-augmented_dataset = augmented_dataset.batch(8)
-augmented_dataset = augmented_dataset.prefetch(4)
-model = keras.models.load_model('Models/model2.h5')
-
-# --------------------- Evaluate ---------------------
-val_loss, val_accuracy = model.evaluate(augmented_dataset)
-print("Validation Loss: ", val_loss)
-print("Validation Accuracy: ", val_accuracy)
-
-
-# Data size: 17
-# Validation Loss:  1.467189073562622
-# Validation Accuracy:  0.529411792755127
+# Data size:  19
+# Validation Loss:  1.446115255355835
+# Validation Accuracy:  0.5263158082962036
