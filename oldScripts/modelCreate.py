@@ -3,7 +3,7 @@
 import tensorflow as tf
 
 # --------------------- Load the data ---------------------
-data = tf.data.Dataset.load('Models/data')
+data = tf.data.Dataset.load('../Models/data')
 
 # --------------------- Prepare the data ---------------------
 # Shuffle the data

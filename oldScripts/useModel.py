@@ -5,7 +5,7 @@ import tensorflow_io as tfio
 from tensorflow import keras
 import matplotlib.pyplot as plt
 
-model = keras.models.load_model('Models/model.h5')
+model = keras.models.load_model('../Models/model.h5')
 
 
 # Load audio file
@@ -60,7 +60,7 @@ def extract_mfccs(file_path):
 
 
 # input_file = 'Audios/fr.wav'
-input_file = '/Users/josephbeasse/Desktop/deepLanguage/Data/val_set_es/output1350.wav'
+input_file = '/Data/val_set_es/output1350.wav'
 inputMFCC = extract_mfccs(input_file)
 inputMFCC = tf.expand_dims(inputMFCC, axis=0)
 prediction = model.predict(inputMFCC)

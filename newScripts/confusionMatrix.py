@@ -6,10 +6,10 @@ import numpy as np
 
 
 # --------------------- Load data & model ---------------------
-data = tf.data.Dataset.load('../Models/newDataValidation') # Load the data from a file
-data = data.shuffle(4000)
-data = data.batch(16)
-data = data.prefetch(16)
+data = tf.data.Dataset.load('../Models/validNotValid') # Load the data from a file
+data = data.shuffle(200)
+data = data.batch(8)
+data = data.prefetch(4)
 #model = keras.models.load_model('../Models/modelNew.h5')
 model = keras.models.load_model('../Models/model2.h5')
 

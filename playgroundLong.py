@@ -54,6 +54,7 @@ def preprocess(file_wav):
     return wav
 
 
+
 def extract_mfccs(file_wav, label):
     preprocessed_audio = preprocess(file_wav)
     # Get the audio data as a tensor
@@ -87,16 +88,14 @@ frame_length = 80000
 
 for file_path, labels in data:
     wav = load_wav_16k_mono(file_path)
-    print(wav)
     if wav.shape[0] <= frame_length:
         augmented_data = tf.data.Dataset.from_tensors((wav,labels))
         if augmented_dataset is None:
             augmented_dataset = augmented_data
         else:
             augmented_dataset = augmented_dataset.concatenate(augmented_data)
-
     else:
-        portions = tf.signal.frame(wav, frame_length, frame_length, axis=0)
+        portions = tf.signal.frame(wav, frame_length, frame_length, axis=0,pad_end=False)
         for portion in portions:
             augmented_data = tf.data.Dataset.from_tensors((portion,labels))
             if augmented_dataset is None:
@@ -107,17 +106,18 @@ for file_path, labels in data:
     # data_size = augmented_dataset.reduce(0, lambda state, _: state + 1)
     # print('Data size: ', data_size.numpy())  # Data size: 159
 
-
+# --------------------- Prepare the data ---------------------
 augmented_dataset = augmented_dataset.map(extract_mfccs)
-augmented_dataset = augmented_dataset.shuffle(200)
-augmented_dataset = augmented_dataset.batch(8)
-augmented_dataset = augmented_dataset.prefetch(4)
-model = keras.models.load_model('Models/model2.h5')
-
-# # --------------------- Evaluate ---------------------
-val_loss, val_accuracy = model.evaluate(augmented_dataset)
-print("Validation Loss: ", val_loss)
-print("Validation Accuracy: ", val_accuracy)
+augmented_dataset.save('Models/validNotValid')               # Save the data to a file
+# augmented_dataset = augmented_dataset.shuffle(200)
+# augmented_dataset = augmented_dataset.batch(8)
+# augmented_dataset = augmented_dataset.prefetch(4)
+# model = keras.models.load_model('Models/model2.h5')
+#
+# # # --------------------- Evaluate ---------------------
+# val_loss, val_accuracy = model.evaluate(augmented_dataset)
+# print("Validation Loss: ", val_loss)
+# print("Validation Accuracy: ", val_accuracy)
 
 
 # Data size: 159
