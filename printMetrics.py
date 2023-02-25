@@ -3,7 +3,7 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 
 
-model = keras.models.load_model('../Models/modelNew.h5')
+model = keras.models.load_model('Models/modelNew.h5')
 
 
 # Load the training history

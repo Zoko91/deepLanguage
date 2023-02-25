@@ -6,12 +6,12 @@ import numpy as np
 
 
 # --------------------- Load data & model ---------------------
-data = tf.data.Dataset.load('../Models/validNotValid') # Load the data from a file
-data = data.shuffle(200)
-data = data.batch(8)
-data = data.prefetch(4)
+data = tf.data.Dataset.load('Models/validationTestOnline') # Load the data from a file
+data = data.shuffle(1000)
+data = data.batch(16)
+data = data.prefetch(8)
 #model = keras.models.load_model('../Models/modelNew.h5')
-model = keras.models.load_model('../Models/model2.h5')
+model = keras.models.load_model('Models/model2.h5')
 
 # --------------------- Confusion Matrix ---------------------
 LANGUAGES = ['english', 'french', 'german', 'spanish']
@@ -40,39 +40,37 @@ confusion = tf.math.confusion_matrix(tf.argmax(val_labels, axis=1),
 print(confusion)
 
 # --------------------- Plot the confusion matrix---------------------
-confusion = confusion.numpy()
+confusion_matrix = confusion.numpy()
+# Normalize the confusion matrix
+confusion_matrix = confusion_matrix.astype('float') / confusion_matrix.sum(axis=1)[:, np.newaxis]
 
-# Calculate precision and recall
-precision = np.diag(confusion) / np.sum(confusion, axis=0)
-recall = np.diag(confusion) / np.sum(confusion, axis=1)
-
-# Create plot
+# Create a figure and axis
 fig, ax = plt.subplots()
-im = ax.imshow(confusion, cmap='Blues')
+im = ax.imshow(confusion_matrix, cmap='Blues')
 
-# Add colorbar
-cbar = ax.figure.colorbar(im, ax=ax)
-
-# Set axis labels and tick labels
+# Add axis labels and a title
 ax.set_xticks(np.arange(len(LANGUAGES)))
 ax.set_yticks(np.arange(len(LANGUAGES)))
 ax.set_xticklabels(LANGUAGES)
 ax.set_yticklabels(LANGUAGES)
-ax.set_xlabel("Predicted")
-ax.set_ylabel("True")
+ax.set_xlabel('Predicted')
+ax.set_ylabel('True')
+ax.set_title('Confusion Matrix')
 
-# Add text annotations for precision and recall
-text_colors = ["black", "white"]
-thresh = im.norm(confusion.max()) / 2.
+# Add text annotations for each cell
+thresh = confusion_matrix.max() / 2.
 for i in range(len(LANGUAGES)):
     for j in range(len(LANGUAGES)):
-        color = text_colors[int(im.norm(confusion[i, j]) > thresh)]
-        ax.text(j, i, f"{confusion[i, j]:d}\n(p={precision[j]:.2f}, r={recall[i]:.2f})", ha="center", va="center", color=color)
+        ax.text(j, i, format(confusion_matrix[i, j], '.2f'),
+                ha="center", va="center",
+                color="white" if confusion_matrix[i, j] > thresh else "black")
 
-# Show plot
+# Add a colorbar
+cbar = ax.figure.colorbar(im, ax=ax)
+cbar.ax.set_ylabel("Normalized Frequency", rotation=-90, va="bottom")
+
+# Show the plot
 plt.show()
-
-
 
 
 

@@ -108,7 +108,7 @@ for file_path, labels in data:
 
 # --------------------- Prepare the data ---------------------
 augmented_dataset = augmented_dataset.map(extract_mfccs)
-augmented_dataset.save('Models/validNotValid')               # Save the data to a file
+augmented_dataset.save('Models/validationTestOnline')               # Save the data to a file
 # augmented_dataset = augmented_dataset.shuffle(200)
 # augmented_dataset = augmented_dataset.batch(8)
 # augmented_dataset = augmented_dataset.prefetch(4)
