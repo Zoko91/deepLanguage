@@ -6,12 +6,12 @@ import numpy as np
 
 
 # --------------------- Load data & model ---------------------
-data = tf.data.Dataset.load('Models/validationTestOnline') # Load the data from a file
+data = tf.data.Dataset.load('Models/newDataValidation') # Load the data from a file
 data = data.shuffle(1000)
 data = data.batch(16)
 data = data.prefetch(8)
 #model = keras.models.load_model('../Models/modelNew.h5')
-model = keras.models.load_model('Models/model2.h5')
+model = keras.models.load_model('Models/model3.h5')
 
 # --------------------- Confusion Matrix ---------------------
 LANGUAGES = ['english', 'french', 'german', 'spanish']
