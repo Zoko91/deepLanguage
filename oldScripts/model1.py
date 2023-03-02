@@ -33,19 +33,6 @@ frMapped = tf.data.Dataset.zip((fr, tf.data.Dataset.from_tensor_slices(tf.ones(l
 enMapped = tf.data.Dataset.zip((en, tf.data.Dataset.from_tensor_slices(tf.zeros(len(en)))))
 data = frMapped.concatenate(enMapped)
 
-# lengths = []
-# increment = 0
-# for file in os.listdir(os.path.join('Data', 'fr_wav')):
-#     if not file.startswith(".DS_Store"):
-#         tensor_wave = load_wav_16k_mono(os.path.join('Data', 'fr_wav', file))
-#         lengths.append(len(tensor_wave))
-#     increment += 1
-#     print(math.floor(increment / 11000 * 100))
-#
-# print(tf.math.reduce_mean(lengths))  # tf.Tensor(82137, shape=(), dtype=int32)  = 5.1s
-# print(tf.math.reduce_min(lengths))  # tf.Tensor(26496, shape=(), dtype=int32)  = 1.6s
-# print(tf.math.reduce_max(lengths))  # tf.Tensor(168768, shape=(), dtype=int32) = 10.5s
-
 
 def preprocess(file_path, label):
     # Load audio file
