@@ -26,6 +26,7 @@ CNNs are particularly well-suited to tasks like language identification because 
 ## Results
 The model has been trained on 4 different languages.
 Here are the results of the latest model presented with a *Confusion Matrix*.
+<br/>
 <img src="https://user-images.githubusercontent.com/94929813/222953991-1ec50a83-dc29-4f5b-b2d1-14514a4618c3.png" alt="Confusion Matrix"/>
 
 
