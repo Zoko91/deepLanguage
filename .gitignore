@@ -165,5 +165,5 @@ cython_debug/
 /Models/
 /Audios/
 /AudiosToConvert/
-/workInProgress/
-/workingDirectory/
+/workingDirectory/Data/
+/workingDirectory/Models/
