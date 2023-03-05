@@ -1,16 +1,18 @@
-##DeepLanguage
+#DeepLanguage
 <hr/>
 
 This project is a deep learning implementation using TensorFlow to analyze audio files and recognize the language being spoken in them. The model is based on a Convolutional Neural Network (CNN) architecture that has proven to be effective in audio signal processing tasks.
 
-##Dataset
+#Dataset
 <hr/>
 The data collected to feed the model is from *Common Voice* by Mozilla.
 I used 11 000 audios of 5 seconds for each language is the traning process.
-I used  2 000 audios for testing and validating.
+I used  2 000 audios for testing and validating.$
+
 ```html
 The Common Voice dataset: This dataset, which was released by Mozilla in 2017, contains over 500 hours of voice data from more than 20,000 contributors, in a variety of languages. The dataset can be downloaded from the Common Voice website: 
 <a href="https://voice.mozilla.org/en/datasets"/>
+
 ```
 
 #Feature extraction
