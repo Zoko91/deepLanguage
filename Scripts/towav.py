@@ -1,3 +1,5 @@
+# The library pydub isn't contained in the virtual environment,
+# so you need to install it in order to use this script
 from pydub import AudioSegment
 import os
 
