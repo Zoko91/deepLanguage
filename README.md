@@ -2,6 +2,37 @@
 
 This project is a deep learning implementation using TensorFlow to analyze audio files and recognize the language being spoken in them. The model is based on a Convolutional Neural Network (CNN) architecture that has proven to be effective in audio signal processing tasks.
 
+## How to use
+
+Use the following command lines in order to clone the repository and create a virtual environment.
+```bash 
+git clone github.com/Zoko91/DeepLanguage
+cd DeepLanguage
+python3 -m venv venv
+```
+
+Then, activate the virtual environment and install the required packages.
+```bash 
+# Windows
+venv\Scripts\activate
+# Linux and Mac
+source venv/bin/activate
+```
+
+Finally, install the required packages and run the program.
+```bash
+pip install -r requirements.txt
+```
+
+**IMPORTANT**:
+<ul>
+<li>The data used for both the traning and the testing of the model is not included in the repository. It can be downloaded from the <a href="https://voice.mozilla.org/en/datasets">Common Voice website</a>.</li>
+<li>The scripts up to date are located in the workingDirectory folder. Others might be deprecated (see: oldScripts).</li>
+</ul>
+
+
+
+
 ## Dataset
 The data collected to feed the model is from *Common Voice* by Mozilla.
 I used 11 000 audios of 5 seconds for each language is the traning process.
