@@ -4,10 +4,10 @@ import tensorflow_io as tfio
 from tensorflow import keras
 import os
 
-FR = os.path.join('Audios', 'fr')
-EN = os.path.join('Audios', 'en')
-DE = os.path.join('Audios', 'de')
-ES = os.path.join('Audios', 'es')
+FR = os.path.join('../../Audios', 'fr')
+EN = os.path.join('../../Audios', 'en')
+DE = os.path.join('../../Audios', 'de')
+ES = os.path.join('../../Audios', 'es')
 
 def get_label(file_path, language):
     # One-hot encode the language
@@ -99,7 +99,7 @@ for elem in data.take(1):
 # data = data.shuffle(200)
 # data = data.batch(8)
 # data = data.prefetch(4)
-# model = keras.models.load_model('Models/model2.h5')
+# model = keras.models.load_model('../../Models/model2.h5')
 #
 # # --------------------- Evaluate ---------------------
 # val_loss, val_accuracy = model.evaluate(data)

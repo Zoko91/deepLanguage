@@ -4,10 +4,10 @@ import tensorflow_io as tfio
 from tensorflow import keras
 import os
 
-FR = os.path.join('Audios', 'fr')
-EN = os.path.join('Audios', 'en')
-DE = os.path.join('Audios', 'de')
-ES = os.path.join('Audios', 'es')
+FR = os.path.join('../../Audios', 'fr')
+EN = os.path.join('../../Audios', 'en')
+DE = os.path.join('../../Audios', 'de')
+ES = os.path.join('../../Audios', 'es')
 
 def get_label(file_path, language):
     # One-hot encode the language
@@ -108,7 +108,7 @@ for file_path, labels in data:
 
 # --------------------- Prepare the data ---------------------
 augmented_dataset = augmented_dataset.map(extract_mfccs)
-augmented_dataset.save('Models/validationTestOnline')               # Save the data to a file
+augmented_dataset.save('../../Models/validationTestOnline')               # Save the data to a file
 # augmented_dataset = augmented_dataset.shuffle(200)
 # augmented_dataset = augmented_dataset.batch(8)
 # augmented_dataset = augmented_dataset.prefetch(4)

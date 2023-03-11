@@ -4,7 +4,7 @@
 import tensorflow as tf
 
 # --------------------- Load the data ---------------------
-data = tf.data.Dataset.load('Models/newData')
+data = tf.data.Dataset.load('../../Models/newData')
 
 
 # --------------------- Prepare the data ---------------------

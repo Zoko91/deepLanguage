@@ -6,10 +6,15 @@ import tensorflow_io as tfio
 import matplotlib.pyplot as plt
 
 # Increase the amount of data you're using to train the model
-FR = os.path.join('Data', 'fr_wav')
-EN = os.path.join('Data', 'en_wav')
-DE = os.path.join('Data', 'de_wav')
-ES = os.path.join('Data', 'es_wav')
+# FR = os.path.join('Data', 'fr_wav')
+# EN = os.path.join('Data', 'en_wav')
+# DE = os.path.join('Data', 'de_wav')
+# ES = os.path.join('Data', 'es_wav')
+
+FR = os.path.join('../../Audios/self', 'FR')
+EN = os.path.join('../../Audios/self', 'EN')
+DE = os.path.join('../../Audios/self', 'DE')
+ES = os.path.join('../../Audios/self', 'ES')
 
 def get_label(file_path, language):
     # One-hot encode the language
@@ -116,8 +121,8 @@ def extract_mfccs(file_path, label):
 # plt.show()
 
 # --------------------- Prepare the data ---------------------
-data = data.map(extract_mfccs)            # Extract the MFCCs
-data.save('../Models/newData')               # Save the data to a file
+data = data.map(extract_mfccs)               # Extract the MFCCs
+data.save('../../Audios/self/TFmodel')               # Save the data to a file
 #
 # # # Shuffle the data
 # data = data.shuffle(60000)

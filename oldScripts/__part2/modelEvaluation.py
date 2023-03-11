@@ -6,11 +6,11 @@ LANGUAGES = ['english', 'french', 'german', 'spanish']
 
 
 # --------------------- Load data & model ---------------------
-data = tf.data.Dataset.load('Models/newDataValidation') # Load the data from a file
+data = tf.data.Dataset.load('../../Models/newDataValidation') # Load the data from a file
 data = data.shuffle(4000)
 data = data.batch(16)
 data = data.prefetch(16)
-model = keras.models.load_model('Models/model3.h5')
+model = keras.models.load_model('../../Models/model3.h5')
 
 # --------------------- Evaluate ---------------------
 val_loss, val_accuracy = model.evaluate(data)

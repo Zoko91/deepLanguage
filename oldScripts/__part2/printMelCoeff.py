@@ -4,7 +4,7 @@ import tensorflow_io as tfio
 from matplotlib import pyplot as plt
 import math
 
-filepath = os.path.join('Data', 'fr_wav', 'output100.wav')
+filepath = os.path.join('../../Data', 'fr_wav', 'output100.wav')
 
 def load_wav_16k_mono(filename):
     file_contents = tf.io.read_file(filename)
