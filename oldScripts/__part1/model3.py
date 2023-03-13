@@ -6,10 +6,10 @@ import tensorflow as tf
 import tensorflow_io as tfio
 
 # Increase the amount of data you're using to train the model
-FR = os.path.join('../../Data', 'fr_wav')
-EN = os.path.join('../../Data', 'en_wav')
-DE = os.path.join('../../Data', 'de_wav')
-ES = os.path.join('../../Data', 'es_wav')
+FR = os.path.join('../../oldData', 'fr_wav')
+EN = os.path.join('../../oldData', 'en_wav')
+DE = os.path.join('../../oldData', 'de_wav')
+ES = os.path.join('../../oldData', 'es_wav')
 
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')
@@ -35,7 +35,7 @@ def load_wav_16k_mono(filename):
     return wav
 
 
-# Data augmentation
+# oldData augmentation
 def data_augmentation(file_path, label):
     wav = load_wav_16k_mono(file_path)
     wav = wav[:80000]

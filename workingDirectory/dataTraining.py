@@ -4,10 +4,10 @@ import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
-FR = os.path.join('../Data', 'fr_wav')
-EN = os.path.join('../Data', 'en_wav')
-DE = os.path.join('../Data', 'de_wav')
-ES = os.path.join('../Data', 'es_wav')
+FR = os.path.join('../oldData', 'fr_wav')
+EN = os.path.join('../oldData', 'en_wav')
+DE = os.path.join('../oldData', 'de_wav')
+ES = os.path.join('../oldData', 'es_wav')
 
 def get_label(filepath, language):
     # One-hot encode the language
@@ -72,8 +72,8 @@ train_dataset_y = tf.data.Dataset.from_tensor_slices(y_train)
 test_dataset_x = tf.data.Dataset.from_tensor_slices(x_test)
 test_dataset_y = tf.data.Dataset.from_tensor_slices(y_test)
 
-train_dataset_x.save('Data/train_dataset_x')
-train_dataset_y.save('Data/train_dataset_y')
+train_dataset_x.save('oldData/train_dataset_x')
+train_dataset_y.save('oldData/train_dataset_y')
 
-test_dataset_x.save('Data/test_dataset_x')
-test_dataset_y.save('Data/test_dataset_y')
+test_dataset_x.save('oldData/test_dataset_x')
+test_dataset_y.save('oldData/test_dataset_y')

@@ -3,14 +3,14 @@ import tensorflow as tf
 import tensorflow_io as tfio
 
 # Increase the amount of data you're using to train the model
-# FR = os.path.join('../Data', 'fr_wav')
-# EN = os.path.join('../Data', 'en_wav')
-# DE = os.path.join('../Data', 'de_wav')
-# ES = os.path.join('../Data', 'es_wav')
-FR = os.path.join('../Data', 'val_set_fr')
-EN = os.path.join('../Data', 'val_set_en')
-DE = os.path.join('../Data', 'val_set_de')
-ES = os.path.join('../Data', 'val_set_es')
+# FR = os.path.join('../oldData', 'fr_wav')
+# EN = os.path.join('../oldData', 'en_wav')
+# DE = os.path.join('../oldData', 'de_wav')
+# ES = os.path.join('../oldData', 'es_wav')
+FR = os.path.join('../oldData', 'val_set_fr')
+EN = os.path.join('../oldData', 'val_set_en')
+DE = os.path.join('../oldData', 'val_set_de')
+ES = os.path.join('../oldData', 'val_set_es')
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')
 de = tf.data.Dataset.list_files(DE + '/*.wav')
@@ -54,14 +54,14 @@ for file_path, label in data.take(len(data)):
 # None
 
 # English
-# Detected NaN values in file: b'../Data/en_wav/output6433.wav'
-# Detected NaN values in file: b'../Data/en_wav/output4429.wav'
-# Detected NaN values in file: b'../Data/en_wav/output10472.wav'
-# Detected NaN values in file: b'../Data/en_wav/output2219.wav'
+# Detected NaN values in file: b'../oldData/en_wav/output6433.wav'
+# Detected NaN values in file: b'../oldData/en_wav/output4429.wav'
+# Detected NaN values in file: b'../oldData/en_wav/output10472.wav'
+# Detected NaN values in file: b'../oldData/en_wav/output2219.wav'
 
 # German
-# Detected NaN values in file: b'../Data/de_wav/output5503.wav'
-# Detected NaN values in file: b'../Data/de_wav/output4821.wav'
+# Detected NaN values in file: b'../oldData/de_wav/output5503.wav'
+# Detected NaN values in file: b'../oldData/de_wav/output4821.wav'
 
 # Spanish
 # None

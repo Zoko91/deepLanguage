@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import os
 import numpy as np
 
-filepath = os.path.join('../Data', 'fr_wav', 'output134.wav')
+filepath = os.path.join('../oldData', 'fr_wav', 'output134.wav')
 
 # def preprocessMelSpect(file_path):
 #     # Load audio file

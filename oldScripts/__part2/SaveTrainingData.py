@@ -6,15 +6,15 @@ import tensorflow_io as tfio
 import matplotlib.pyplot as plt
 
 # Increase the amount of data you're using to train the model
-# FR = os.path.join('Data', 'fr_wav')
-# EN = os.path.join('Data', 'en_wav')
-# DE = os.path.join('Data', 'de_wav')
-# ES = os.path.join('Data', 'es_wav')
+# FR = os.path.join('oldData', 'fr_wav')
+# EN = os.path.join('oldData', 'en_wav')
+# DE = os.path.join('oldData', 'de_wav')
+# ES = os.path.join('oldData', 'es_wav')
 
-FR = os.path.join('../../Audios/self', 'FR')
-EN = os.path.join('../../Audios/self', 'EN')
-DE = os.path.join('../../Audios/self', 'DE')
-ES = os.path.join('../../Audios/self', 'ES')
+FR = os.path.join('../../Audios/__self', 'FR')
+EN = os.path.join('../../Audios/__self', 'EN')
+DE = os.path.join('../../Audios/__self', 'DE')
+ES = os.path.join('../../Audios/__self', 'ES')
 
 def get_label(file_path, language):
     # One-hot encode the language
@@ -47,7 +47,7 @@ data = data.concatenate(es)
 # How many files in the dataset ?
 # --
 # data_size = data.reduce(0, lambda state, _: state + 1)
-# print('Data size: ', data_size.numpy())  # Data size:  43993
+# print('oldData size: ', data_size.numpy())  # oldData size:  43993
 
 # Has the data been shuffled ? What are the labels ?
 # --
@@ -122,7 +122,7 @@ def extract_mfccs(file_path, label):
 
 # --------------------- Prepare the data ---------------------
 data = data.map(extract_mfccs)               # Extract the MFCCs
-data.save('../../Audios/self/TFmodel')               # Save the data to a file
+data.save('../../Audios/__self/TFmodel')               # Save the data to a file
 #
 # # # Shuffle the data
 # data = data.shuffle(60000)

@@ -4,7 +4,7 @@
 import tensorflow as tf
 
 # --------------------- Load the data ---------------------
-data = tf.data.Dataset.load('../../Models/newData')
+data = tf.data.Dataset.load('../../oldRessources/newData')
 
 
 # --------------------- Prepare the data ---------------------
@@ -55,4 +55,4 @@ early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', p
 
 # Train the model
 history = model.fit(train,validation_data=test, epochs=20,verbose=1,callbacks=[early_stopping_callback])
-#model.save('Models/model3.h5')
+#model.save('oldRessources/newModel2.h5')

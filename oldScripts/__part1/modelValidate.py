@@ -4,10 +4,10 @@ import tensorflow_io as tfio
 from tensorflow import keras
 import os
 
-FR = os.path.join('../../Data', 'val_set_fr')
-EN = os.path.join('../../Data', 'val_set_en')
-DE = os.path.join('../../Data', 'val_set_de')
-ES = os.path.join('../../Data', 'val_set_es')
+FR = os.path.join('../../oldData', 'val_set_fr')
+EN = os.path.join('../../oldData', 'val_set_en')
+DE = os.path.join('../../oldData', 'val_set_de')
+ES = os.path.join('../../oldData', 'val_set_es')
 
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')
@@ -22,7 +22,7 @@ data = frMapped.concatenate(enMapped)
 data = data.concatenate(deMapped)
 data = data.concatenate(esMapped)
 data_size = data.reduce(0, lambda state, _: state + 1)
-print('Data size: ', data_size.numpy())  # Data size:  43993
+print('oldData size: ', data_size.numpy())  # oldData size:  43993
 
 
 # Load audio file
@@ -82,7 +82,7 @@ data = data.map(extract_mfccs)
 data = data.shuffle(4000)
 data = data.batch(1)
 data = data.prefetch(1)
-model = keras.models.load_model('../../Models/model.h5')
+model = keras.models.load_model('../../oldRessources/model.h5')
 val_loss, val_accuracy = model.evaluate(data)
 print("Validation Loss: ", val_loss)
 print("Validation Accuracy: ", val_accuracy)

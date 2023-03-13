@@ -3,8 +3,8 @@ import random
 import shutil
 
 # Set the source and destination directories
-src_dir = '/Users/josephbeasse/Desktop/deepLanguage/Data/en2/clips'
-dst_dir = '/Users/josephbeasse/Desktop/deepLanguage/Data/en'
+src_dir = '/oldData/en2/clips'
+dst_dir = '/oldData/en'
 
 # Get a list of all files in the source directory
 files = os.listdir(src_dir)

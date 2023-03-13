@@ -6,10 +6,10 @@ import tensorflow_io as tfio
 import matplotlib.pyplot as plt
 
 # Increase the amount of data you're using to train the model
-FR = os.path.join('../Data', 'fr_wav')
-EN = os.path.join('../Data', 'en_wav')
-DE = os.path.join('../Data', 'de_wav')
-ES = os.path.join('../Data', 'es_wav')
+FR = os.path.join('../oldData', 'fr_wav')
+EN = os.path.join('../oldData', 'en_wav')
+DE = os.path.join('../oldData', 'de_wav')
+ES = os.path.join('../oldData', 'es_wav')
 
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')
@@ -25,7 +25,7 @@ data = frMapped.concatenate(enMapped)
 data = data.concatenate(deMapped)
 data = data.concatenate(esMapped)
 data_size = data.reduce(0, lambda state, _: state + 1)
-print('Data size: ', data_size.numpy())  # Data size:  43993
+print('oldData size: ', data_size.numpy())  # oldData size:  43993
 
 
 # Load audio file
@@ -95,4 +95,4 @@ plt.show()
 
 # --------------------- Prepare the data ---------------------
 # data = data.map(extract_mfccs)            # Extract the MFCCs
-# data.save('../Models/data')                  # Save the data to a file
+# data.save('../oldRessources/data')                  # Save the data to a file

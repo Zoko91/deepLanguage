@@ -5,9 +5,9 @@ import tensorflow_io as tfio
 from matplotlib import pyplot as plt
 import math
 
-# Define Paths to Files
-fr_audios = os.path.join('../../Data', 'fr_wav', 'output0.wav')
-en_audios = os.path.join('../../Data', 'en_wav', 'output0.wav')
+# Define Paths to __files
+fr_audios = os.path.join('../../oldData', 'fr_wav', 'output0.wav')
+en_audios = os.path.join('../../oldData', 'en_wav', 'output0.wav')
 
 
 def load_wav_16k_mono(filename):
@@ -23,8 +23,8 @@ def load_wav_16k_mono(filename):
     return wav
 
 
-FR = os.path.join('../../Data', 'fr_wav')
-EN = os.path.join('../../Data', 'en_wav')
+FR = os.path.join('../../oldData', 'fr_wav')
+EN = os.path.join('../../oldData', 'en_wav')
 
 fr = tf.data.Dataset.list_files(FR + '/*.wav')
 en = tf.data.Dataset.list_files(EN + '/*.wav')

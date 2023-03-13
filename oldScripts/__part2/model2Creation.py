@@ -3,7 +3,7 @@
 import tensorflow as tf
 
 # --------------------- Load the data ---------------------
-data = tf.data.Dataset.load('../../Models/newData')
+data = tf.data.Dataset.load('../../oldRessources/newData')
 
 # --------------------- Prepare the data ---------------------
 # Shuffle the data
@@ -45,7 +45,7 @@ model.summary()
 
 # --------------------- Train the model ---------------------
 history = model.fit(train,validation_data=test, epochs=20, verbose=1)
-model.save('../Models/model2.h5')
+model.save('../oldRessources/oldModel.h5')
 
 
 # --------------------- Model2 ---------------------

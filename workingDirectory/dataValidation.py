@@ -3,10 +3,10 @@ import os
 import numpy as np
 import tensorflow as tf
 
-FR = os.path.join('../Data', 'val_set_fr')
-EN = os.path.join('../Data', 'val_set_en')
-DE = os.path.join('../Data', 'val_set_de')
-ES = os.path.join('../Data', 'val_set_es')
+FR = os.path.join('../oldData', 'val_set_fr')
+EN = os.path.join('../oldData', 'val_set_en')
+DE = os.path.join('../oldData', 'val_set_de')
+ES = os.path.join('../oldData', 'val_set_es')
 
 
 def get_label(filepath, language):
@@ -58,4 +58,4 @@ x_validation = [data[0] for data in data_processed]
 y_validation = [data[1] for data in data_processed]
 
 validation_dataset = tf.data.Dataset.from_tensor_slices((x_validation, y_validation))
-validation_dataset.save('Data/validation_dataset')
+validation_dataset.save('oldData/validation_dataset')

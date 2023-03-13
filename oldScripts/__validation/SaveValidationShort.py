@@ -89,7 +89,7 @@ def extract_mfccs(file_path, label):
 
 # How many files in the dataset ?
 data_size = data.reduce(0, lambda state, _: state + 1)
-print('Data size: ', data_size.numpy())
+print('oldData size: ', data_size.numpy())
 
 for elem in data.take(1):
     print(elem[0])
@@ -99,7 +99,7 @@ for elem in data.take(1):
 # data = data.shuffle(200)
 # data = data.batch(8)
 # data = data.prefetch(4)
-# model = keras.models.load_model('../../Models/model2.h5')
+# model = keras.models.load_model('../../oldRessources/oldModel.h5')
 #
 # # --------------------- Evaluate ---------------------
 # val_loss, val_accuracy = model.evaluate(data)
@@ -107,6 +107,6 @@ for elem in data.take(1):
 # print("Validation Accuracy: ", val_accuracy)
 
 
-# Data size:  19
+# oldData size:  19
 # Validation Loss:  1.446115255355835
 # Validation Accuracy:  0.5263158082962036

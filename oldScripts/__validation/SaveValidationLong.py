@@ -104,15 +104,15 @@ for file_path, labels in data:
                 augmented_dataset = augmented_dataset.concatenate(augmented_data)
 
     # data_size = augmented_dataset.reduce(0, lambda state, _: state + 1)
-    # print('Data size: ', data_size.numpy())  # Data size: 159
+    # print('oldData size: ', data_size.numpy())  # oldData size: 159
 
 # --------------------- Prepare the data ---------------------
 augmented_dataset = augmented_dataset.map(extract_mfccs)
-augmented_dataset.save('../../Models/validationTestOnline')               # Save the data to a file
+augmented_dataset.save('../../oldRessources/validationTestOnline')               # Save the data to a file
 # augmented_dataset = augmented_dataset.shuffle(200)
 # augmented_dataset = augmented_dataset.batch(8)
 # augmented_dataset = augmented_dataset.prefetch(4)
-# model = keras.models.load_model('Models/model2.h5')
+# model = keras.models.load_model('oldRessources/oldModel.h5')
 #
 # # # --------------------- Evaluate ---------------------
 # val_loss, val_accuracy = model.evaluate(augmented_dataset)
@@ -120,6 +120,6 @@ augmented_dataset.save('../../Models/validationTestOnline')               # Save
 # print("Validation Accuracy: ", val_accuracy)
 
 
-# Data size: 159
+# oldData size: 159
 # Validation Loss:  3.718963861465454
 # Validation Accuracy:  0.43396225571632385

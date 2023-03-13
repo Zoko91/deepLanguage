@@ -5,9 +5,9 @@ import tensorflow as tf
 import tensorflow_io as tfio
 import mimetypes #gives file type details
 
-# Define Paths to Files
-fr_audios = os.path.join('../Data', 'fr_wav', 'output0.wav')
-de_audios = os.path.join('../Data', 'de_wav', 'output0.wav')
+# Define Paths to __files
+fr_audios = os.path.join('../oldData', 'fr_wav', 'output0.wav')
+de_audios = os.path.join('../oldData', 'de_wav', 'output0.wav')
 
 
 def load_wav_16k_mono(filename):
@@ -23,8 +23,8 @@ def load_wav_16k_mono(filename):
     return wav
 
 
-FR = os.path.join('Data', 'fr_wav')
-DE = os.path.join('Data', 'de_wav')
+FR = os.path.join('oldData', 'fr_wav')
+DE = os.path.join('oldData', 'de_wav')
 
 fr = tf.data.Dataset.list_files(FR+'/*.wav')
 de = tf.data.Dataset.list_files(DE+'/*.wav')
@@ -37,14 +37,14 @@ data = frMapped.concatenate(deMapped)
 lengths = []
 file_number = 0
 file_numbers = []
-for file in os.listdir(os.path.join('Data', 'fr_wav')):
+for file in os.listdir(os.path.join('oldData', 'fr_wav')):
     print(str(file_number)+ " - " + file)
     try:
-        tensor_wave = load_wav_16k_mono(os.path.join('Data', 'fr_wav', file))
+        tensor_wave = load_wav_16k_mono(os.path.join('oldData', 'fr_wav', file))
         lengths.append(len(tensor_wave))
     except Exception as e:
         print("Error details: ", e)
-        file_type, encoding = mimetypes.guess_type(os.path.join('Data', 'fr_wav', file))
+        file_type, encoding = mimetypes.guess_type(os.path.join('oldData', 'fr_wav', file))
         file_numbers.append(file)
 
     file_number +=1
