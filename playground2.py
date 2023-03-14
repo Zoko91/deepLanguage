@@ -32,6 +32,8 @@ def preprocessMelCoeff(file_path,label):
     wav, sr = librosa.load(file_path, sr=16000) # load audio file with 16kHz sample rate
     # Pad or truncate the audio file to 5 seconds
     wav = librosa.util.fix_length(wav,size=80000)
+    # Normalize the waveform
+    wav = librosa.util.normalize(wav)
     # Calculate Mel-frequency spectrogram
     spect = librosa.feature.melspectrogram(y=wav, sr=sr, n_mels=128)
     # Convert to log scale (dB). We'll use the peak power as reference.
@@ -64,9 +66,30 @@ y_test = [data[1] for data in test_data]
 x_validation = [data[0] for data in validation_data]
 y_validation = [data[1] for data in validation_data]
 
+# A ESSAYER:
+
+def random_shift(wav):
+    shift = tf.random.uniform([], minval=-1600, maxval=1600, dtype=tf.int32)
+    padded = tf.pad(wav, [[shift, -shift]], "CONSTANT")
+    return padded[:80000]
+
+def add_noise(wav):
+    noise = tf.random.normal(tf.shape(wav), stddev=0.1)
+    return wav + noise
+
+def change_pitch(wav):
+    # pick a random pitch shift between -2 and 2 semitones
+    n_steps = tf.random.uniform([], minval=-2, maxval=2, dtype=tf.int32)
+    return librosa.effects.pitch_shift(wav.numpy(), 16000, n_steps)
 
 # Create TensorFlow datasets from the input and output lists
 train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
+
+# train_dataset = train_dataset.map(lambda x, y: (random_shift(x), y), num_parallel_calls=tf.data.AUTOTUNE)
+# train_dataset = train_dataset.map(lambda x, y: (add_noise(x), y), num_parallel_calls=tf.data.AUTOTUNE)
+# train_dataset = train_dataset.map(lambda x, y: (change_pitch(x), y), num_parallel_calls=tf.data.AUTOTUNE)
+
+
 test_dataset = tf.data.Dataset.from_tensor_slices((x_test, y_test))
 validation_dataset = tf.data.Dataset.from_tensor_slices((x_validation, y_validation))
 
