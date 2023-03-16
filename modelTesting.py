@@ -6,9 +6,9 @@ import numpy as np
 
 
 # --------------------- Load data & model ---------------------
-data = tf.data.Dataset.load('./newData/test_dataset').batch(32).prefetch(16)
+# data = tf.data.Dataset.load('./newData/test_dataset').batch(32).prefetch(16)
 # data = tf.data.Dataset.load('./Archives/Data/validation_dataset').batch(32).prefetch(16)
-# data  = tf.data.Dataset.load('./oldData/validation_dataset_self').batch(32).prefetch(16)
+data  = tf.data.Dataset.load('./oldData/validation_dataset_self').batch(32).prefetch(16)
 model = keras.models.load_model('./Models/model2.h5')
 
 # --------------------- Confusion Matrix ---------------------
