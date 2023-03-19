@@ -3,13 +3,13 @@ import os
 import shutil
 
 # specify the directory containing the files to be moved
-src_dir = '../newData/en/clips'
+src_dir = '../Data/en/clips'
 
 # specify the directory where the files will be moved
-dst_dir = '../newData/enMP3'
+dst_dir = '../Data/enMP3'
 
 # specify the path to the CSV file containing the file names
-tsv_path = '../newData/en/other.tsv'
+tsv_path = '../Data/en/other.tsv'
 
 # open the CSV file and read the file names
 with open(tsv_path, 'r') as f:

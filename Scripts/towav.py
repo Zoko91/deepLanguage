@@ -3,8 +3,8 @@
 from pydub import AudioSegment
 import os
 
-path_to_dir = '/Users/josephbeasse/Desktop/deepLanguage/newData/deMP3/'
-path_to_wav = '/Users/josephbeasse/Desktop/deepLanguage/newData/de/'
+path_to_dir = '/Data/deMP3/'
+path_to_wav = '/Data/de/'
 number_files = 0
 
 for file in os.listdir(path_to_dir):

@@ -167,6 +167,7 @@ cython_debug/
 /Audios/
 /AudiosToConvert/
 /Archives/Data/
-/newData/
+/Data/
 /oldCodes/
 /Models/__largeModels/
+/Datasets/

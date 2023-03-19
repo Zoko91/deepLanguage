@@ -7,10 +7,10 @@ import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
-FR = os.path.join('./newData', 'fr')
-ES = os.path.join('./newData', 'es')
-DE = os.path.join('./newData', 'de')
-EN = os.path.join('./newData', 'en')
+FR = os.path.join('Data', 'fr')
+ES = os.path.join('Data', 'es')
+DE = os.path.join('Data', 'de')
+EN = os.path.join('Data', 'en')
 
 def get_label(filepath, language):
     # One-hot encode the language
@@ -92,7 +92,7 @@ for file_path,label in train_data:
 x_train = [data[0] for data in data_processed]
 y_train = [data[1] for data in data_processed]
 train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
-train_dataset.save('./newData/Augmented/train_dataset')
+train_dataset.save('./Data/Augmented/train_dataset')
 
 
 # Validation data:
@@ -109,7 +109,7 @@ for file_path, label in validation_data:
 x_val = [data[0] for data in data_processed]
 y_val = [data[1] for data in data_processed]
 val_dataset = tf.data.Dataset.from_tensor_slices((x_val, y_val))
-val_dataset.save('./newData/Augmented/val_dataset')
+val_dataset.save('./Data/Augmented/val_dataset')
 
 
 # Testing data:
@@ -126,7 +126,7 @@ for file_path, label in validation_data:
 x_test = [data[0] for data in data_processed]
 y_test = [data[1] for data in data_processed]
 test_dataset = tf.data.Dataset.from_tensor_slices((x_val, y_val))
-test_dataset.save('./newData/Augmented/test_dataset')
+test_dataset.save('./Data/Augmented/test_dataset')
 
 
 

@@ -6,10 +6,10 @@ import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
-FR = os.path.join('./newData', 'fr')
-ES = os.path.join('./newData', 'es')
-DE = os.path.join('./newData', 'de')
-EN = os.path.join('./newData', 'en')
+FR = os.path.join('Data', 'fr')
+ES = os.path.join('Data', 'es')
+DE = os.path.join('Data', 'de')
+EN = os.path.join('Data', 'en')
 
 def get_label(filepath, language):
     # One-hot encode the language
@@ -71,6 +71,6 @@ test_dataset = tf.data.Dataset.from_tensor_slices((x_test, y_test))
 validation_dataset = tf.data.Dataset.from_tensor_slices((x_validation, y_validation))
 
 
-train_dataset.save('./newData/train_dataset')
-test_dataset.save('./newData/test_dataset')
-validation_dataset.save('./newData/validation_dataset')
+train_dataset.save('./Data/train_dataset')
+test_dataset.save('./Data/test_dataset')
+validation_dataset.save('./Data/validation_dataset')
