@@ -1,3 +1,4 @@
+# --------------------- Model Testing ---------------------
 # CONFUSION: 0.0
 import tensorflow as tf
 from tensorflow import keras
@@ -9,6 +10,7 @@ import numpy as np
 # data = tf.data.Dataset.load('./newData/test_dataset').batch(32).prefetch(16)
 # data = tf.data.Dataset.load('./Archives/Data/validation_dataset').batch(32).prefetch(16)
 data  = tf.data.Dataset.load('./oldData/validation_dataset_self').batch(32).prefetch(16)
+# model = keras.models.load_model('./Models/__largeModels/model3.h5')
 model = keras.models.load_model('./Models/model2.h5')
 
 # --------------------- Confusion Matrix ---------------------
