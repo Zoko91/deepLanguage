@@ -12,7 +12,7 @@ data = tf.data.Dataset.load('./Data/Augmented/test_dataset').batch(32).prefetch(
 # data = tf.data.Dataset.load('./Archives/Data/validation_dataset').batch(32).prefetch(16)
 # data  = tf.data.Dataset.load('./oldData/self_validation').batch(32).prefetch(16)
 # model = keras.models.load_model('./Models/__largeModels/model3.h5')
-model = keras.models.load_model('./Models/__largeModels/model3.h5')
+model = keras.models.load_model('./Models/__largeModels/RNN.h5')
 
 # --------------------- Confusion Matrix ---------------------
 LANGUAGES = ['french', 'spanish', 'german', 'english']

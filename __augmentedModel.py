@@ -1,6 +1,6 @@
 # --------------------- Model Creation 3 ---------------------
-import tensorflow as tf
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 # --------------------- Load the data ---------------------
 train_dataset = tf.data.Dataset.load('Data/Augmented/train_dataset').batch(64).prefetch(1)
@@ -16,20 +16,26 @@ def create_model(input_shape=(13, 157, 1), num_classes=4):
     model.add(tf.keras.layers.Input(shape=input_shape))
 
     # Convolutional layers
-    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu', padding='same',strides=(1, 2)))
-    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(4, 4), activation='relu', padding='same', strides=(1, 2)))
-    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(5, 5), activation='relu', padding='same', strides=(1, 2)))
+    model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.BatchNormalization())
-    model.add(tf.keras.layers.Dropout(0.2))
-    model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(5, 5), activation='relu', padding='same',strides=(1, 2)))
-    model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(4, 4), activation='relu', padding='same', strides=(1, 2)))
-    model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu', padding='same', strides=(1, 2)))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(1, 2)))
+    model.add(tf.keras.layers.Dropout(0.10))
+    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.BatchNormalization())
-    model.add(tf.keras.layers.Dropout(0.2))
-
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(1, 2)))
+    model.add(tf.keras.layers.Dropout(0.10))
+    model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(1, 2)))
+    model.add(tf.keras.layers.Dropout(0.10))
+    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(1, 2)))
+    model.add(tf.keras.layers.Dropout(0.1))
     # Fully connected layers
     model.add(tf.keras.layers.Flatten())
     model.add(tf.keras.layers.Dense(units=512, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)))
+    model.add(tf.keras.layers.Dropout(0.10))
     # Output layer
     model.add(tf.keras.layers.Dense(units=num_classes, activation='softmax'))
 
@@ -37,11 +43,12 @@ def create_model(input_shape=(13, 157, 1), num_classes=4):
 
 # Create the model
 model = create_model()
+model.summary()
 
 # Compile the model
-optimizer = tf.keras.optimizers.Adam(learning_rate=0.0005)
+optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
 model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
-model.summary()
+
 
 # Early stopping
 early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
