@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 
 # --------------------- Load the data ---------------------
-train_dataset = tf.data.Dataset.load('Data/Augmented/train_dataset').batch(64).prefetch(1)
-val_dataset = tf.data.Dataset.load('Data/Augmented/val_dataset').batch(64).prefetch(1)
+train_dataset = tf.data.Dataset.load('../../Data/Augmented/train_dataset').batch(64).prefetch(1)
+val_dataset = tf.data.Dataset.load('../../Data/Augmented/val_dataset').batch(64).prefetch(1)
 
 
 def create_model(input_shape=(13, 157, 1), num_classes=4):
@@ -55,7 +55,7 @@ early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', p
 
 # Train the model
 history = model.fit(train_dataset, epochs=100, validation_data=val_dataset, callbacks=[early_stopping_callback],verbose=1)
-model.save('./Models/__largeModels/augmented.h5')
+model.save('../../Models/__largeModels/augmented.h5')
 
 
 # Plot the loss
