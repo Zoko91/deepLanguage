@@ -1,3 +1,4 @@
+# Deprecated
 # Preparing the MFCCs of the audio files
 
 import os

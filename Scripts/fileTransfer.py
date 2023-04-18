@@ -1,3 +1,8 @@
+# old scripts used to select validated files from community
+# In common voices, you get a tsv files that has information about
+# the audio files it contains
+# Some are validated some are not, the file selects only the ones that are
+
 import csv
 import os
 import shutil

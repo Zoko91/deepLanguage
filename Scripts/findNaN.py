@@ -1,3 +1,6 @@
+# Old script used to find files that were corrupted
+# In order to delete them, deprecated
+
 import os
 import tensorflow as tf
 import tensorflow_io as tfio

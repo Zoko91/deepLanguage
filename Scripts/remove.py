@@ -1,3 +1,5 @@
+# Old script used to remove files that were not a .wav file
+
 import os
 
 path_to_dir = '/oldData/val_set_en'

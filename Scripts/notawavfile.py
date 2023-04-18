@@ -1,3 +1,8 @@
+# I had .idea and .code files created by VSCode and Jetbrains IDEA that were blocking my scripts.
+# It was taking every file of the folder and trying to process them
+# even the ones that were not audio files.
+
+
 # Load Dependencies
 import os
 from matplotlib import pyplot as plt

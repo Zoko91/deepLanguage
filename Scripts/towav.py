@@ -1,5 +1,8 @@
 # The library pydub isn't contained in the virtual environment,
 # so you need to install it in order to use this script
+
+# Old script used to convert .mp3 files to .wav files
+
 from pydub import AudioSegment
 import os
 

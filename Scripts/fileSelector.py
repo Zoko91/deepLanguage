@@ -1,3 +1,6 @@
+# Old script used to select random files from a folder
+# Selecting them and copying them in another folder
+
 import os
 import random
 import shutil

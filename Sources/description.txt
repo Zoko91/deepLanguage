@@ -1,0 +1,3 @@
+# Folder description
+# Files that helped me develop models
+# Litterature

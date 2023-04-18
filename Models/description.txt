@@ -1,0 +1,5 @@
+# Folder description
+# 1. Store different Models in folder called Model[X]
+# 2. Store large models that can't be stored on github >100mo
+#    in __largeModels
+# Also store files to create the model and confusion matrix + traning informations

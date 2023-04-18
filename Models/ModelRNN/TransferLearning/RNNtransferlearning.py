@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-def create_new_model(num_classes=4, model_path='../__largeModels/RNN.h5'):
+def create_new_model(num_classes=4, model_path='../../__largeModels/RNN.h5'):
     # Load the model and get the layers
     model = tf.keras.models.load_model(model_path)
     layers = model.layers[:17]  # Get the first 14 layers from the loaded model
@@ -36,10 +36,10 @@ new_model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=
 early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
 
 # --------------------- Load the data ---------------------
-train_dataset = tf.data.Dataset.load('../../Data/train_dataset').batch(128).prefetch(16)
-val_dataset = tf.data.Dataset.load('../../Data/validation_dataset').batch(128).prefetch(16)
+train_dataset = tf.data.Dataset.load('../../../Data/train_dataset').batch(128).prefetch(16)
+val_dataset = tf.data.Dataset.load('../../../Data/validation_dataset').batch(128).prefetch(16)
 
 
 # Train the model
 history = new_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[early_stopping_callback],verbose=1)
-new_model.save('../__largeModels/RNNtransfer.h5')
+new_model.save('../../__largeModels/RNNtransfer.h5')
