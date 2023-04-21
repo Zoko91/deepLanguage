@@ -1,4 +1,9 @@
-# --------------------- Model Creation 3 ---------------------
+# --------------------- Model Creation Augmented ---------------------
+# The model has poor performance overall, needs a work to improve how much
+# augmentation is too much augmentation.
+# The model struggles to learn through the augmented data, and the validation
+# loss is higher than the training loss.
+
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
@@ -55,7 +60,7 @@ early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', p
 
 # Train the model
 history = model.fit(train_dataset, epochs=100, validation_data=val_dataset, callbacks=[early_stopping_callback],verbose=1)
-model.save('../../Models/__largeModels/augmented.h5')
+model.save('../__largeModels/augmented.h5')
 
 
 # Plot the loss

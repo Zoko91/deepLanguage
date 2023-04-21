@@ -8,6 +8,8 @@ import numpy as np
 
 # --------------------- Load data & model ---------------------
 data = tf.data.Dataset.load('./Data/Augmented/test_dataset').batch(32).prefetch(16)
+# CHANGE THE MODEL AND DATA TO TRY DIFFERENT CONFIGURATIONS AS WANTED:
+# -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-
 # data = tf.data.Dataset.load('./Data/test_dataset').batch(32).prefetch(16)
 # data  = tf.data.Dataset.load('./Data/self_validation').batch(32).prefetch(16)
 model = keras.models.load_model('./Models/__largeModels/model3.h5')

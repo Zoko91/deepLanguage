@@ -46,7 +46,7 @@ early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', p
 
 # Train the model
 history = model.fit(train_dataset, epochs=20, validation_data=val_dataset, callbacks=[early_stopping_callback],verbose=1)
-model.save('../../Models/model2.h5')
+model.save('./model2.h5')
 
 
 # Plot the loss

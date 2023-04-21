@@ -1,4 +1,4 @@
-# --------------------- Model Creation 3 ---------------------
+# --------------------- Model Creation RnnSimple layer ---------------------
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
@@ -56,7 +56,7 @@ early_stopping_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', p
 
 # Train the model
 history = model.fit(train_dataset, epochs=20, validation_data=val_dataset, callbacks=[early_stopping_callback],verbose=1)
-model.save('../../../Models/__largeModels/RNN.h5')
+model.save('../../__largeModels/RNN.h5')
 
 
 # Plot the loss

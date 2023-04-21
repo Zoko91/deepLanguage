@@ -1,4 +1,5 @@
 # --------------------- Datasets Augmentation ---------------------
+# This file contains an implementation of data augmentation using audio shifting, random noise and change of pitch
 
 import librosa, librosa.display
 import os
